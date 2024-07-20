@@ -2,8 +2,8 @@ use std::fmt;
 
 #[derive(Debug)]
 pub struct MagicSquare {
-    square: Vec<i8>,
-    order: usize,
+    pub square: Vec<i8>,
+    pub order: usize,
 }
 
 impl MagicSquare {
