@@ -4,6 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = ["frontend", "backend"]
+members = [
+  "src/frontend", 
+  "src/backend"
+]
 [dependencies]
 
