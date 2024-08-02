@@ -17,9 +17,9 @@ impl MagicSquare {
     // Function to convert square Vec<i8> to Vec<Vec<i8>>
     pub fn to_2d_vec(&self) -> Vec<Vec<i8>> {
         self.square
-            .chunks(self.order)
-            .map(|chunk| chunk.to_vec())
-            .collect()
+           .chunks_exact(self.order)
+           .map(|chunk| chunk.to_vec())
+           .collect()
     }
 }
 
