@@ -4,7 +4,7 @@ fn main() {
     println!("Solving a 3x3 Magic Square");
 
     let mut ms3x3 = MagicSquare::new(3);
-    let solver = MagicSquareSolver::new();
+    let mut solver = MagicSquareSolver::new();
 
     if solver.solve(&mut ms3x3) {
         println!("Solution Found:");

@@ -3,8 +3,8 @@
 //! This module re-exports the most commonly used types and functions
 //! from the library, allowing users to import them all at once.
 
-pub use crate::square::magic::MagicSquare;
 pub use crate::solver::backtrack::MagicSquareSolver;
+pub use crate::square::magic::{simulated_annealing, MagicSquare};
 pub use crate::utils::validation::is_magic_square;
 
 // If you have any error types or result types, you might want to include them here as well.

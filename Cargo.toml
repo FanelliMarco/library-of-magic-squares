@@ -12,6 +12,7 @@ name = "magic_squares"
 path = "src/lib.rs"
 
 [dependencies]
+rand = "0.8.5"
 
 [dev-dependencies]
 criterion = "*"
