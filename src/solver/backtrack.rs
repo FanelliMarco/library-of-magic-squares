@@ -1,20 +1,25 @@
+use super::SolvingAlgorithm;
 use crate::square::magic::MagicSquare;
 use crate::utils::validation::is_magic_square;
 
-pub struct MagicSquareSolver;
+pub struct BacktrackSolver;
 
-impl MagicSquareSolver {
+impl BacktrackSolver {
     pub fn new() -> Self {
-        MagicSquareSolver
+        BacktrackSolver
     }
+}
 
-    pub fn solve(&self, magic_square: &mut MagicSquare) -> bool {
+impl SolvingAlgorithm for BacktrackSolver {
+    fn solve(&self, magic_square: &mut MagicSquare) -> bool {
         let n = magic_square.order();
         let mut used = vec![false; (n * n + 1) as usize];
 
         self.backtrack(magic_square, 0, 0, &mut used)
     }
+}
 
+impl BacktrackSolver {
     fn backtrack(
         &self,
         square: &mut MagicSquare,

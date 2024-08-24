@@ -2,8 +2,9 @@ use rand::prelude::SliceRandom;
 use rand::Rng;
 use std::cmp::Ordering;
 use std::fmt;
+use std::hash::Hash;
 
-#[derive(Debug, Clone)]
+#[derive(PartialEq, Eq, Hash, Debug, Clone)]
 pub struct MagicSquare {
     square: Vec<i8>,
     order: usize,
