@@ -1,6 +1,5 @@
 use rand::prelude::SliceRandom;
 use rand::Rng;
-use std::cmp::Ordering;
 use std::fmt;
 use std::hash::Hash;
 
@@ -49,21 +48,7 @@ impl MagicSquare {
     pub fn magic_constant(&self) -> usize {
         self.order * (self.order * self.order + 1) / 2
     }
-}
 
-impl fmt::Display for MagicSquare {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        for row in self.to_2d_vec() {
-            for &num in &row {
-                write!(f, "{:4}", num)?;
-            }
-            writeln!(f)?;
-        }
-        Ok(())
-    }
-}
-
-impl MagicSquare {
     pub fn gen_rand_square(order: usize) -> Self {
         let mut rng = rand::thread_rng();
         let mut square = MagicSquare::new(order);
@@ -142,52 +127,14 @@ impl MagicSquare {
     }
 }
 
-pub fn simulated_annealing(order: usize) -> MagicSquare {
-    let mut rng = rand::thread_rng();
-    let mut t = 100.0;
-    let mut current_state = MagicSquare::gen_rand_square(order);
-    let mut current_violations = current_state.get_num_of_violated();
-
-    let mut best_state = current_state.clone();
-    let mut best_violations = current_violations;
-
-    let mut iteration = 0;
-
-    while iteration < 1000 && best_violations > 0 && t > 0.0 {
-        t *= 0.995; // Geometric cooling schedule
-
-        // Generate a batch of 50 successors and select the best one
-        let mut batch = Vec::new();
-        for _ in 0..50 {
-            let successor = current_state.get_successor();
-            let violations = successor.get_num_of_violated();
-            batch.push((successor, violations));
-        }
-
-        batch.sort_by(|a, b| a.1.cmp(&b.1));
-        let (best_successor, best_successor_violations) = batch[0].clone();
-
-        match best_successor_violations.cmp(&current_violations) {
-            Ordering::Less => {
-                current_state = best_successor;
-                current_violations = best_successor_violations;
-                if current_violations < best_violations {
-                    best_state = current_state.clone();
-                    best_violations = current_violations;
-                }
+impl fmt::Display for MagicSquare {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        for row in self.to_2d_vec() {
+            for &num in &row {
+                write!(f, "{:4}", num)?;
             }
-            _ => {
-                let delta_e = (best_successor_violations - current_violations) as f64;
-                let probability = (-delta_e / t).exp();
-                if rng.gen::<f64>() < probability {
-                    current_state = best_successor;
-                    current_violations = best_successor_violations;
-                }
-            }
+            writeln!(f)?;
         }
-
-        iteration += 1;
+        Ok(())
     }
-
-    best_state
 }

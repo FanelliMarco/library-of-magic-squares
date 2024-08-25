@@ -1,5 +1,6 @@
 pub mod backtrack;
 pub mod gaussian_elimination;
+pub mod simulated_annealing;
 
 use crate::square::magic::MagicSquare;
 
